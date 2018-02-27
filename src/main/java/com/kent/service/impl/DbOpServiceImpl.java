@@ -1,6 +1,7 @@
 package com.kent.service.impl;
 
 import com.kent.dao.DbMapper;
+import com.kent.dto.DataDTO;
 import com.kent.entity.SqlString;
 import com.kent.service.DbOpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,14 @@ public class DbOpServiceImpl implements DbOpService {
      * @return
      */
     @Override
-    public String execute2(String sql) {
+    public DataDTO execute2(String sql) {
         //查询
         List<HashMap<String, String>> list = dbMapper.queryDb(new SqlString(sql));
         //查询无结果
         if (list == null || list.size() <= 0) {
             return null;
         }
+        DataDTO dataDTO = new DataDTO();
         //拼装
         StringBuilder dataJsonStr = new StringBuilder("");
         dataJsonStr.append("[");
@@ -46,7 +48,10 @@ public class DbOpServiceImpl implements DbOpService {
          */
         //拼装表头
         dataJsonStr.append("{");
+        //字段集合
         Set<String> keySet = list.get(0).keySet();
+        //保存字段数量
+        dataDTO.setColNum(keySet.size());
         String[] headArr = new String[keySet.size()];
         headArr = keySet.toArray(headArr);
         for (int i = 0; i < headArr.length; i++) {
@@ -80,8 +85,8 @@ public class DbOpServiceImpl implements DbOpService {
             dataJsonStr.append("}");
         }
         dataJsonStr.append("]");
-        System.out.println();
-        return dataJsonStr.toString();
+        dataDTO.setDataJsonStr(dataJsonStr.toString());
+        return dataDTO;
     }
 
 }

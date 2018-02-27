@@ -1,6 +1,7 @@
 package com.kent.controller;
 
 import com.kent.dao.DbMapper;
+import com.kent.dto.DataDTO;
 import com.kent.entity.SqlString;
 import com.kent.service.DbOpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class DbOpController {
     }
 
     @PostMapping("execute")
-    public String execute(@RequestParam("sql") String sql) {
-        String dataJsonStr = dbOpService.execute2(sql);
+    public DataDTO execute(@RequestParam("sql") String sql) {
+        DataDTO dataDTO = dbOpService.execute2(sql);
         //JSONArray jsonObj = JSONArray.fromObject(dataJsonStr);
-        System.out.println(dataJsonStr);
-        return dataJsonStr;
+        //System.out.println(dataDTO.getDataJsonStr());
+        return dataDTO;
     }
 }

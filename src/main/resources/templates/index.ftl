@@ -18,7 +18,7 @@
                 <#--<button id="btnExecute" class="btn btn-default">Execute</button>-->
                 <input type="button" class="button" id="btnExecute" value="Execute"/>
             </form>
-            <table class="table">
+            <table class="table" id="content">
                 <thead>
                 <tr>
                     <th>
@@ -148,20 +148,24 @@
                 data: {
                     sql: sql
                 },
-                dataType: "text",
+                dataType: "json",
                 success: function(result) {
+                    var colNum = result.colNum;
+                    //console.log(colNum);
+                    var dataJsonStr = result.dataJsonStr;
                     //将字符串转换成json对象
-                    var dataJson = eval('(' + result + ')');
+                    var dataJson = eval('(' + dataJsonStr + ')');
                     //根据json对象拼装成table
+                    var tableHtml = "";
                     $.each(dataJson,function (index,rowObj) {
-                        //console.log(rowObj.);
-                        //console.log($(this).text());
-                        console.log(dataJson[index]);
-                        console.log(dataJson[index].COL0);
-
+                        if (index == 0) {
+                            tableHtml += genThead(colNum, index, rowObj);
+                        } else {
+                            tableHtml += genTbody(colNum, index, rowObj);
+                        }
                     })
-                    //console.log(dataJson);
-                    //console.log(result);
+                    //将html片段插入到table中
+                    $("#content").html(tableHtml);
                 },
                 error: function () {
                     console.log("error");
@@ -169,5 +173,51 @@
             });
         });
     })
+
+    /**
+     * 生成表格head内容
+     * @param colNum
+     * @param index
+     * @param rowObj
+     * @returns {string}
+     */
+    function genThead(colNum, index, rowObj) {
+        var rowHtml = "<thead><tr>";
+
+        //对每一行遍历，获得每一个字段的值
+        for (var i = 0; i < colNum ; i++) {
+            var value = rowObj["COL" + i];
+            var colHtml = "<th>" + value + "</th>";
+            rowHtml += colHtml;
+            //console.log(rowObj["COL"+i]);
+        }
+        //表头要用thead
+        rowHtml += "</tr></thead>";
+        return rowHtml;
+    }
+
+    /**
+     * 生成表格body内容
+     * @param colNum
+     * @param index
+     * @param rowObj
+     * @returns {string}
+     */
+    function genTbody(colNum, index, rowObj) {
+        var rowHtml = "";
+        if (index % 2 == 0) {
+            rowHtml = "<tbody><tr class='success'>";
+        } else {
+            rowHtml = "<tbody><tr>";
+        }
+        //对每一行遍历，获得每一个字段的值
+        for (var i = 0; i < colNum ; i++) {
+            var value = rowObj["COL" + i];
+            var colHtml = "<td>" + value + "</td>";
+            rowHtml += colHtml;
+        }
+        rowHtml += "</tr></tbody>";
+        return rowHtml;
+    }
 </script>
 </html>

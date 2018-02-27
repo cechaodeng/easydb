@@ -1,5 +1,7 @@
 package com.kent.service;
 
+import com.kent.dto.DataDTO;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,5 +12,5 @@ import java.util.List;
 public interface DbOpService {
     List<HashMap<String, String>> execute(String sql);
 
-    String execute2(String sql);
+    DataDTO execute2(String sql);
 }
