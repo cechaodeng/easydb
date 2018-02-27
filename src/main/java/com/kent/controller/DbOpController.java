@@ -35,7 +35,7 @@ public class DbOpController {
 
     @PostMapping("execute")
     public DataDTO execute(@RequestParam("sql") String sql) {
-        DataDTO dataDTO = dbOpService.execute2(sql);
+        DataDTO dataDTO = dbOpService.execute(sql);
         //JSONArray jsonObj = JSONArray.fromObject(dataJsonStr);
         //System.out.println(dataDTO.getDataJsonStr());
         return dataDTO;

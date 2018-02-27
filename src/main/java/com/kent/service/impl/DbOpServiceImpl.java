@@ -21,18 +21,13 @@ public class DbOpServiceImpl implements DbOpService {
     @Autowired
     private DbMapper dbMapper;
 
-    @Override
-    public List<HashMap<String, String>> execute(String sql) {
-        return null;
-    }
-
     /**
      * 查询数据库，并将数据库中内容拼接成controller层需要的对象
      * @param sql
      * @return
      */
     @Override
-    public DataDTO execute2(String sql) {
+    public DataDTO execute(String sql) {
         //查询
         List<HashMap<String, String>> list = dbMapper.queryDb(new SqlString(sql));
         //查询无结果
