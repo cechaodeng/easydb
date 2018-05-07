@@ -35,6 +35,7 @@ public class DbOpServiceImpl implements DbOpService {
             return null;
         }
         DataDTO dataDTO = new DataDTO();
+        dataDTO.setRowNum(list.size());
         //拼装
         StringBuilder dataJsonStr = new StringBuilder("");
         dataJsonStr.append("[");
@@ -82,6 +83,18 @@ public class DbOpServiceImpl implements DbOpService {
         dataJsonStr.append("]");
         dataDTO.setDataJsonStr(dataJsonStr.toString());
         return dataDTO;
+    }
+
+    public static void main(String[] args) {
+        StringBuffer a = new StringBuffer();
+        a.append("");
+        try {
+            throw new Exception("111");
+        } catch (Exception e) {
+            return;
+        } finally {
+            return;
+        }
     }
 
 }

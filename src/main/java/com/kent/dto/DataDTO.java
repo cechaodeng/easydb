@@ -9,7 +9,16 @@ import lombok.Data;
 @Data
 public class DataDTO {
     private int colNum;
+    private int rowNum;
     private String dataJsonStr;
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
+    }
 
     public int getColNum() {
         return colNum;

@@ -108,7 +108,7 @@
                 </tr>
                 </tbody>
             </table>
-            <ul class="pagination">
+            <#--<ul class="pagination" id="pageUl">
                 <li>
                     <a href="#">Prev</a>
                 </li>
@@ -130,7 +130,7 @@
                 <li>
                     <a href="#">Next</a>
                 </li>
-            </ul>
+            </ul>-->
         </div>
     </div>
 </div>
@@ -138,6 +138,7 @@
 <script type="text/javascript">
     $(function () {
         console.log("加载完毕");
+        var curPageNum = 0;
         $("#btnExecute").on("click",function () {
             var sql = $("#sql").val();
             //console.log(sql);
@@ -150,7 +151,11 @@
                 },
                 dataType: "json",
                 success: function(result) {
+                    //当前页为第一页
+                    curPageNum = 1;
+                    var rowNum = result.rowNum;
                     var colNum = result.colNum;
+                    setPageInfo(rowNum,colNum);
                     //console.log(colNum);
                     var dataJsonStr = result.dataJsonStr;
                     //将字符串转换成json对象
@@ -172,7 +177,13 @@
                 }
             });
         });
-    })
+    });
+    function setPageInfo(rowNum) {
+        var pageNum = 1 + (rowNum / 15);
+        if
+
+
+    }
 
     /**
      * 生成表格head内容

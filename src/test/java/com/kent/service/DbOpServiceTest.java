@@ -25,8 +25,8 @@ public class DbOpServiceTest {
 
     @Test
     public void execute() throws Exception {
-        List<HashMap<String, String>> list = dbOpService.execute("select * from db");
-        System.out.println(list.size());
+        //List<HashMap<String, String>> list = dbOpService.execute("select * from db");
+        //System.out.println(list.size());
     }
 
 }
